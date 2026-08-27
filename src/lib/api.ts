@@ -160,3 +160,86 @@ export async function fetchDeveloperBySlug(slug: string): Promise<DeveloperDetai
   }
 }
 
+// ── Client Portal API ─────────────────────────────────────────────────────────
+
+export async function clientLogin(email: string, password: string) {
+  const url = `${API_BASE}/client/login`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  return await res.json();
+}
+
+export async function fetchClientMe(token: string): Promise<ClientPortalProfileResponse | null> {
+  const url = `${API_BASE}/client/me`;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error("fetchClientMe error:", err);
+    return null;
+  }
+}
+
+export async function fetchClientProjects(token: string): Promise<ClientProjectsResponse | null> {
+  const url = `${API_BASE}/client/projects`;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error("fetchClientProjects error:", err);
+    return null;
+  }
+}
+
+export async function fetchClientProjectDetails(token: string, code: string): Promise<ClientProjectDetailResponse | null> {
+  const url = `${API_BASE}/client/projects/${encodeURIComponent(code)}`;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error(`fetchClientProjectDetails error for ${code}:`, err);
+    return null;
+  }
+}
+
+export async function sendClientProjectMessage(token: string, projectId: number, message: string) {
+  const url = `${API_BASE}/client/projects/${projectId}/messages`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message }),
+  });
+  return await res.json();
+}
+

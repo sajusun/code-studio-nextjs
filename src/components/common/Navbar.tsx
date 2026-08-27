@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  ShieldCheck,
 } from "lucide-react";
 
 const navLinks = [
@@ -158,6 +159,16 @@ export function Navbar() {
               </div>
             )}
           </div>
+
+          {/* Client Portal Link */}
+          <Link
+            href="/portal"
+            className="btn btn-secondary hidden sm:inline-flex text-xs py-2 px-3 items-center gap-1.5 hover:border-blue-400"
+            title="Private Client Project Workspace"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-accent" />
+            <span>Client Portal</span>
+          </Link>
 
           {/* CTA */}
           <Link href="/request-quote" className="btn btn-primary hidden sm:inline-flex text-xs py-2 px-4">

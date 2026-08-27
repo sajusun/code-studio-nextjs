@@ -147,3 +147,92 @@ export interface ReverbNotificationPayload {
   link?: string;
   time?: string;
 }
+
+// ── Client Portal Types ───────────────────────────────────────────────────────
+
+export interface ClientUser {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}
+
+export interface ProjectMilestone {
+  id: number;
+  title: string;
+  description?: string | null;
+  status: "pending" | "in_progress" | "completed";
+  due_date?: string | null;
+  completed_at?: string | null;
+  sort_order: number;
+}
+
+export interface ProjectMessage {
+  id: number;
+  sender_type: "client" | "admin" | "developer" | "system";
+  sender_name: string;
+  sender_avatar?: string | null;
+  message: string;
+  attachment_url?: string | null;
+  attachment_name?: string | null;
+  created_at: string;
+  time?: string;
+}
+
+export interface ClientProjectAssignedDev {
+  id: number;
+  name: string;
+  slug: string;
+  avatar?: string | null;
+  experience_years?: number;
+  role_in_project: string;
+  primary_role: string;
+  primary_color: string;
+}
+
+export interface ClientProject {
+  id: number;
+  project_code: string;
+  title: string;
+  slug: string;
+  description?: string | null;
+  status: "discovery" | "in_progress" | "review" | "completed" | "on_hold";
+  progress_percent: number;
+  platform?: string | null;
+  budget?: string | number | null;
+  currency?: string;
+  start_date?: string | null;
+  delivery_deadline?: string | null;
+  staging_url?: string | null;
+  github_repo_url?: string | null;
+  apk_build_url?: string | null;
+  figma_url?: string | null;
+  notes?: string | null;
+  milestones?: ProjectMilestone[];
+  milestones_count?: number;
+  completed_milestones?: number;
+  developers?: ClientProjectAssignedDev[];
+  messages?: ProjectMessage[];
+}
+
+export interface ClientPortalProfileResponse {
+  success: boolean;
+  data: {
+    user: ClientUser;
+    stats: {
+      total_projects: number;
+      active_projects: number;
+      completed_projects: number;
+    };
+  };
+}
+
+export interface ClientProjectsResponse {
+  success: boolean;
+  data: ClientProject[];
+}
+
+export interface ClientProjectDetailResponse {
+  success: boolean;
+  data: ClientProject;
+}

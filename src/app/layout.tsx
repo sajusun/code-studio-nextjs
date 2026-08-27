@@ -4,6 +4,7 @@ import { Navbar } from "@/components/common/Navbar";
 import { Footer } from "@/components/common/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { NotificationProvider } from "@/context/NotificationContext";
+import { ClientAuthProvider } from "@/context/ClientAuthContext";
 import { NotificationToast } from "@/components/common/NotificationToast";
 
 export const metadata: Metadata = {
@@ -30,12 +31,14 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col antialiased">
         <ThemeProvider>
           <NotificationProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <NotificationToast />
-            </div>
+            <ClientAuthProvider>
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <NotificationToast />
+              </div>
+            </ClientAuthProvider>
           </NotificationProvider>
         </ThemeProvider>
       </body>
