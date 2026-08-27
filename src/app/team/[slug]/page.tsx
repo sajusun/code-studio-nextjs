@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { fetchDeveloperBySlug } from "@/lib/api";
-import { Developer, DeveloperProductSummary } from "@/types";
+import { Developer, DeveloperProductSummary, DeveloperRole } from "@/types";
 import { formatCurrency, getPlatformBadge, getSafeImageUrl } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -61,7 +61,7 @@ export async function generateMetadata({
   const dev = res.data;
   return {
     title: `${dev.name} — Developer Profile & Portfolio | CodeStudio`,
-    description: dev.bio || `${dev.name} is a software engineer specializing in ${dev.roles?.map(r => r.name).join(", ")}.`,
+    description: dev.bio || `${dev.name} is a software engineer specializing in ${dev.roles?.map((r: DeveloperRole) => r.name).join(", ")}.`,
   };
 }
 

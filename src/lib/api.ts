@@ -1,4 +1,14 @@
-import { ProductDetailResponse, ProductsResponse, QuoteRequest, DevelopersResponse, DeveloperRolesResponse } from "@/types";
+import {
+  ProductDetailResponse,
+  ProductsResponse,
+  QuoteRequest,
+  DevelopersResponse,
+  DeveloperRolesResponse,
+  DeveloperDetailResponse,
+  ClientPortalProfileResponse,
+  ClientProjectsResponse,
+  ClientProjectDetailResponse,
+} from "@/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://backend.test/api/v1";
 
