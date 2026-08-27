@@ -14,6 +14,9 @@ import {
   Cpu,
   Layers,
   MessageSquare,
+  Sparkles,
+  MessageCircle,
+  Users,
 } from "lucide-react";
 
 export const revalidate = 30;
@@ -122,6 +125,56 @@ export default async function ProductDetailPage({
               </div>
             )}
           </div>
+
+          {/* Engineering Team Behind This App */}
+          {product.developers && product.developers.length > 0 && (
+            <div className="card p-6 rounded-2xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-bold flex items-center gap-2" style={{ color: "var(--text-main)" }}>
+                    <Users className="w-4 h-4 text-accent" />
+                    <span>Engineers Behind This Project</span>
+                  </h3>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+                    Directly contact or hire the specialized developers who architected this software.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {product.developers.map((dev) => (
+                  <Link
+                    key={dev.id}
+                    href={`/team/${dev.slug}`}
+                    className="p-3.5 rounded-xl border flex items-center gap-3 transition-all hover:border-blue-400 hover:shadow-xs group"
+                    style={{ background: "var(--bg-section)", borderColor: "var(--border)" }}
+                  >
+                    {/* Avatar Initials */}
+                    <div
+                      className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
+                      style={{
+                        background: dev.roles?.[0]?.color ? `linear-gradient(135deg, ${dev.roles[0].color}, ${dev.roles[0].color}99)` : "var(--accent-gradient)",
+                      }}
+                    >
+                      {dev.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase()}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-xs font-bold truncate group-hover:text-accent transition-colors" style={{ color: "var(--text-main)" }}>
+                        {dev.name}
+                      </h4>
+                      <p className="text-[10px] font-semibold text-accent truncate">
+                        {dev.role_in_project}
+                      </p>
+                      <span className="text-[10px]" style={{ color: "var(--text-faint)" }}>
+                        {dev.experience_years}+ yrs exp · View Profile →
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
 
@@ -235,15 +288,59 @@ export default async function ProductDetailPage({
               </div>
             )}
 
-            {/* Request Quote Button */}
-            <div className="pt-2">
-              <Link
-                href={`/request-quote?product=${encodeURIComponent(product.title)}&id=${product.id}`}
-                className="w-full py-3.5 rounded-2xl glass-panel bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-900 dark:text-white font-bold text-xs border border-slate-200 dark:border-white/10 flex items-center justify-center gap-2 transition-all shadow-xs"
-              >
-                <MessageSquare className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                <span>Request Custom Quote for This Build</span>
-              </Link>
+            {/* Customization & Hiring Box */}
+            <div
+              className="p-5 rounded-2xl border space-y-3"
+              style={{
+                background: "var(--bg-section)",
+                borderColor: "var(--border)",
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+                <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: "var(--text-main)" }}>
+                  Need This App Customized or Rebuilt?
+                </h4>
+              </div>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                We can customize this software with your logo, brand colors, custom payment gateways, and business logic.
+              </p>
+
+              <div className="space-y-2 pt-1">
+                {/* Request Quote Button */}
+                <Link
+                  href={`/request-quote?product=${encodeURIComponent(product.title)}&id=${product.id}`}
+                  className="btn btn-primary w-full justify-center text-xs py-2.5"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Request Customization Quote</span>
+                </Link>
+
+                {/* WhatsApp Direct Chat */}
+                <a
+                  href={`https://wa.me/8801700000000?text=Hello%2C%20I%20am%20interested%20in%20customizing%20or%20ordering%20the%20${encodeURIComponent(product.title)}%20software.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn w-full justify-center text-xs font-semibold"
+                  style={{ background: "#25D366", color: "#ffffff" }}
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Discuss on WhatsApp</span>
+                </a>
+
+                {/* Order on Fiverr */}
+                <a
+                  href="https://www.fiverr.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn w-full justify-center text-xs font-semibold"
+                  style={{ background: "#1dbf73", color: "#ffffff" }}
+                >
+                  <span className="font-bold text-[11px]">fi</span>
+                  <span>Order via Fiverr</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
 
           </div>

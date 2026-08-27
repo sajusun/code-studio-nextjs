@@ -99,12 +99,14 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Company & Help</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Agency & Hiring</h4>
             <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
-              <li><Link href="/services" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Engineering Services</Link></li>
+              <li><Link href="/team" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Meet Developer Team</Link></li>
+              <li><Link href="/services" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Custom Development</Link></li>
               <li><Link href="/request-quote" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Project Estimator</Link></li>
               <li><Link href="/contact" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Contact & Support</Link></li>
-              <li><a href="http://backend_hms.test/admin/login" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Admin Dashboard ↗</a></li>
+              <li><a href="https://www.fiverr.com" target="_blank" rel="noreferrer" className="text-[#1dbf73] font-semibold hover:underline">Hire on Fiverr ↗</a></li>
+              <li><a href="https://wa.me/8801700000000" target="_blank" rel="noreferrer" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">WhatsApp Chat ↗</a></li>
             </ul>
           </div>
 

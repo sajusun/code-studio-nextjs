@@ -145,3 +145,18 @@ export async function fetchDeveloperRoles(): Promise<DeveloperRolesResponse> {
   }
 }
 
+export async function fetchDeveloperBySlug(slug: string): Promise<DeveloperDetailResponse | null> {
+  const url = `${API_BASE}/public/developers/${encodeURIComponent(slug)}`;
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: 30 },
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error(`fetchDeveloperBySlug error for ${slug}:`, err);
+    return null;
+  }
+}
+

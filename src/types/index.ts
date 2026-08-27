@@ -1,5 +1,63 @@
 export type ProductType = "web_app" | "android" | "ios" | "custom";
 
+export interface DeveloperRole {
+  id: number;
+  name: string;
+  slug: string;
+  color: string;
+  icon: string;
+  description?: string | null;
+  sort_order: number;
+  developers_count?: number;
+  published_count?: number;
+}
+
+export interface DeveloperProjectMember {
+  id: number;
+  name: string;
+  slug: string;
+  bio?: string | null;
+  avatar?: string | null;
+  experience_years: number;
+  role_in_project: string;
+  roles: DeveloperRole[];
+}
+
+export interface DeveloperProductSummary {
+  id: number;
+  title: string;
+  slug: string;
+  type: ProductType;
+  category: string;
+  price: string | number;
+  short_description: string;
+  thumbnail_url?: string | null;
+  tech_stack?: string[] | null;
+  role_in_project?: string | null;
+}
+
+export interface Developer {
+  id: number;
+  name: string;
+  slug: string;
+  email?: string | null;
+  phone?: string | null;
+  bio?: string | null;
+  avatar?: string | null;
+  github_url?: string | null;
+  linkedin_url?: string | null;
+  portfolio_url?: string | null;
+  twitter_url?: string | null;
+  skills: string[];
+  experience_years: number;
+  status: "published" | "private" | "draft";
+  sort_order: number;
+  roles: DeveloperRole[];
+  products?: DeveloperProductSummary[];
+  products_count?: number;
+  created_at: string;
+}
+
 export interface Product {
   id: number;
   title: string;
@@ -26,6 +84,7 @@ export interface Product {
   allow_custom_quotes: boolean;
   is_featured: boolean;
   is_active: boolean;
+  developers?: DeveloperProjectMember[];
   created_at: string;
   updated_at: string;
 }
@@ -52,6 +111,22 @@ export interface ProductDetailResponse {
   related: Product[];
 }
 
+export interface DeveloperDetailResponse {
+  success: boolean;
+  data: Developer;
+}
+
+export interface DevelopersResponse {
+  success: boolean;
+  data: Developer[];
+  message?: string;
+}
+
+export interface DeveloperRolesResponse {
+  success: boolean;
+  data: DeveloperRole[];
+}
+
 export interface QuoteRequest {
   name: string;
   email: string;
@@ -71,49 +146,4 @@ export interface ReverbNotificationPayload {
   type?: string;
   link?: string;
   time?: string;
-}
-
-// ── Developer Team Types ──────────────────────────────────────────────────────
-
-export interface DeveloperRole {
-  id: number;
-  name: string;
-  slug: string;
-  color: string;
-  icon: string;
-  description?: string | null;
-  sort_order: number;
-  developers_count?: number;
-  published_count?: number;
-}
-
-export interface Developer {
-  id: number;
-  name: string;
-  slug: string;
-  email?: string | null;
-  phone?: string | null;
-  bio?: string | null;
-  avatar?: string | null;
-  github_url?: string | null;
-  linkedin_url?: string | null;
-  portfolio_url?: string | null;
-  twitter_url?: string | null;
-  skills: string[];
-  experience_years: number;
-  status: "published" | "private" | "draft";
-  sort_order: number;
-  roles: DeveloperRole[];
-  created_at: string;
-}
-
-export interface DevelopersResponse {
-  success: boolean;
-  data: Developer[];
-  message?: string;
-}
-
-export interface DeveloperRolesResponse {
-  success: boolean;
-  data: DeveloperRole[];
 }

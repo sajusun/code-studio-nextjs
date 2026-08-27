@@ -66,39 +66,68 @@ export default function ContactPage() {
         {/* Contact Info Cards (5 Cols) */}
         <div className="lg:col-span-5 space-y-4">
           
-          <div className="glass-card p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 space-y-4">
-            <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-cyan-500/10 border border-blue-200 dark:border-cyan-500/20 text-blue-700 dark:text-cyan-400 flex items-center justify-center">
-              <Mail className="w-5 h-5" />
+          {/* WhatsApp Direct Chat Card */}
+          <div className="card p-5 space-y-3">
+            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <Phone className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Email Engineering Desk</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">For license inquiries and technical support:</p>
-              <a href="mailto:support@example.com" className="text-xs font-mono font-bold text-blue-600 dark:text-cyan-400 hover:underline mt-2 inline-block">
-                support@example.com
+              <h3 className="text-sm font-bold" style={{ color: "var(--text-main)" }}>Direct Chat & WhatsApp</h3>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Instant communication for urgent project scopes & inquiries:</p>
+              <a
+                href="https://wa.me/8801700000000?text=Hello%20CodeStudio%2C%20I%20want%20to%20discuss%20a%20software%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline mt-2 inline-flex items-center gap-1.5"
+              >
+                <span>Chat on WhatsApp (+880 1700-000000)</span>
+                <span>↗</span>
               </a>
             </div>
           </div>
 
-          <div className="glass-card p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 space-y-4">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
-              <Phone className="w-5 h-5" />
+          {/* Fiverr & Upwork Card */}
+          <div className="card p-5 space-y-3">
+            <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Direct Chat & WhatsApp</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Instant communication for urgent project scopes:</p>
-              <span className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 mt-2 inline-block">
-                +1 (555) 019-2834 / WhatsApp Available
-              </span>
+              <h3 className="text-sm font-bold" style={{ color: "var(--text-main)" }}>Hire via Marketplaces</h3>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>If you prefer hiring with marketplace escrow and protection:</p>
+              <div className="flex items-center gap-3 mt-2">
+                <a
+                  href="https://www.fiverr.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-[#1dbf73] hover:underline"
+                >
+                  Fiverr Profile ↗
+                </a>
+                <span className="text-slate-300 dark:text-slate-700">•</span>
+                <a
+                  href="https://www.upwork.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-[#14a800] hover:underline"
+                >
+                  Upwork Profile ↗
+                </a>
+              </div>
             </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 space-y-3 text-xs text-slate-600 dark:text-slate-400 font-medium">
-            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold">
-              <Clock className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-              <span>Operating Hours:</span>
+          {/* Email Support Card */}
+          <div className="card p-5 space-y-3">
+            <div className="w-9 h-9 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <Mail className="w-4 h-4" />
             </div>
-            <p>Monday – Friday: 9:00 AM – 7:00 PM (UTC)</p>
-            <p>Weekend On-Call Support for critical deployments.</p>
+            <div>
+              <h3 className="text-sm font-bold" style={{ color: "var(--text-main)" }}>Direct Email Desk</h3>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>For formal RFPs, custom quote documents, and NDA requests:</p>
+              <a href="mailto:contact@codestudio.dev" className="text-xs font-mono font-bold text-accent hover:underline mt-2 inline-block">
+                contact@codestudio.dev
+              </a>
+            </div>
           </div>
 
         </div>

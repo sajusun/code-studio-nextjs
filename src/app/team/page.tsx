@@ -70,9 +70,9 @@ function DeveloperCard({ dev }: { dev: Developer }) {
       {/* Card Header — Avatar + basic info */}
       <div className="p-6 pb-4 flex items-start gap-4">
         {/* Avatar */}
-        <div className="relative shrink-0">
+        <Link href={`/team/${dev.slug}`} className="relative shrink-0 group/avatar">
           <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg"
+            className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg transition-transform group-hover/avatar:scale-105"
             style={{
               background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}88)`,
               boxShadow: `0 8px 24px -4px rgba(${rgb},0.4)`,
@@ -82,12 +82,14 @@ function DeveloperCard({ dev }: { dev: Developer }) {
           </div>
           {/* Online dot */}
           <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white dark:border-slate-900 shadow" />
-        </div>
+        </Link>
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-base text-slate-900 dark:text-white truncate">
-            {dev.name}
-          </h3>
+          <Link href={`/team/${dev.slug}`} className="block group/name">
+            <h3 className="font-bold text-base text-slate-900 dark:text-white truncate group-hover/name:text-accent transition-colors">
+              {dev.name}
+            </h3>
+          </Link>
           {/* Experience badge */}
           <div className="flex items-center gap-1.5 mt-0.5">
             <Briefcase className="w-3 h-3 text-slate-400" />
@@ -152,21 +154,29 @@ function DeveloperCard({ dev }: { dev: Developer }) {
       {/* Spacer */}
       <div className="flex-1" />
 
-      {/* Social links footer */}
+      {/* Profile link + Social links footer */}
       <div
-        className="px-6 py-4 border-t flex items-center justify-between"
+        className="px-6 py-3.5 border-t flex items-center justify-between"
         style={{ borderColor: `${primaryColor}18` }}
       >
-        <div className="flex items-center gap-2">
+        <Link
+          href={`/team/${dev.slug}`}
+          className="text-xs font-semibold text-accent inline-flex items-center gap-1 hover:underline"
+        >
+          <span>View Profile</span>
+          <ArrowRight className="w-3 h-3" />
+        </Link>
+
+        <div className="flex items-center gap-1.5">
           {dev.github_url && (
             <a
               href={dev.github_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
               aria-label={`${dev.name} GitHub`}
             >
-              <GitBranch className="w-3.5 h-3.5" />
+              <GitBranch className="w-3 h-3" />
             </a>
           )}
           {dev.linkedin_url && (
@@ -174,10 +184,10 @@ function DeveloperCard({ dev }: { dev: Developer }) {
               href={dev.linkedin_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
               aria-label={`${dev.name} LinkedIn`}
             >
-              <LinkedinIcon className="w-3.5 h-3.5" />
+              <LinkedinIcon className="w-3 h-3" />
             </a>
           )}
           {dev.portfolio_url && (
@@ -185,38 +195,12 @@ function DeveloperCard({ dev }: { dev: Developer }) {
               href={dev.portfolio_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-all"
               aria-label={`${dev.name} Portfolio`}
             >
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="w-3 h-3" />
             </a>
           )}
-          {dev.twitter_url && (
-            <a
-              href={dev.twitter_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-500/10 transition-all"
-              aria-label={`${dev.name} Twitter/X`}
-            >
-              <TwitterXIcon className="w-3.5 h-3.5" />
-            </a>
-          )}
-        </div>
-
-        {/* Accent star rating visual */}
-        <div className="flex items-center gap-0.5">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className="w-3 h-3"
-              style={{
-                color: i < Math.min(5, Math.round(dev.experience_years / 2)) ? primaryColor : undefined,
-                opacity: i < Math.min(5, Math.round(dev.experience_years / 2)) ? 1 : 0.15,
-                fill: i < Math.min(5, Math.round(dev.experience_years / 2)) ? primaryColor : "transparent",
-              }}
-            />
-          ))}
         </div>
       </div>
     </div>
@@ -281,7 +265,7 @@ export default async function TeamPage({
   const roles: DeveloperRole[] = rolesRes.data ?? [];
 
   return (
-    <div className="min-h-screen bg-cyber-grid" style={{ backgroundColor: "var(--bg-main)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--bg-main)" }}>
       {/* ── Hero Section ──────────────────────────────────────────────────────── */}
       <section className="relative pt-24 pb-16 px-4 overflow-hidden">
         {/* Background glow blobs */}

@@ -7,129 +7,150 @@ import { useNotifications } from "@/context/NotificationContext";
 import { ThemeSwitcher } from "@/components/common/ThemeSwitcher";
 import {
   Code2,
-  Sparkles,
-  Layers,
-  Smartphone,
-  Globe,
   Bell,
   ArrowRight,
   Menu,
   X,
-  Send,
-  Users,
+  ChevronDown,
 } from "lucide-react";
+
+const navLinks = [
+  { name: "Products",  href: "/products"       },
+  { name: "Services",  href: "/services"        },
+  { name: "Team",      href: "/team"            },
+  { name: "Contact",   href: "/contact"         },
+];
 
 export function Navbar() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
+  const [notifOpen, setNotifOpen]     = useState(false);
   const { notifications, unreadCount, clearNotifications } = useNotifications();
 
-  const navLinks = [
-    { name: "Showcase", href: "/products", icon: Layers },
-    { name: "Web Apps", href: "/products?type=web_app", icon: Globe },
-    { name: "Mobile Apps", href: "/products?type=android", icon: Smartphone },
-    { name: "Team", href: "/team", icon: Users },
-    { name: "Services", href: "/services", icon: Code2 },
-    { name: "Contact", href: "/contact", icon: Send },
-  ];
+  const isActive = (href: string) =>
+    pathname === href || (href !== "/" && pathname.startsWith(href.split("?")[0]));
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-nav backdrop-blur-xl transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 p-0.5 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-white dark:bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <Code2 className="w-6 h-6 text-blue-600 dark:text-cyan-400 group-hover:rotate-6 transition-transform" />
-            </div>
+    <header
+      className="sticky top-0 z-40 glass-nav"
+      style={{ boxShadow: "0 1px 0 var(--border)" }}
+    >
+      <div className="container h-16 flex items-center justify-between gap-6">
+
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{ background: "var(--accent-gradient)" }}
+          >
+            <Code2 className="w-4 h-4 text-white" />
           </div>
-          <div>
-            <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
-              Code<span className="text-gradient">Studio</span>
-              <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-md bg-blue-50 dark:bg-cyan-500/10 text-blue-700 dark:text-cyan-400 border border-blue-200 dark:border-cyan-500/20">
-                PRO
-              </span>
+          <div className="flex flex-col leading-none">
+            <span className="font-bold text-sm tracking-tight" style={{ color: "var(--text-main)" }}>
+              CodeStudio
             </span>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Software & SaaS Showcase</p>
+            <span className="text-[10px] font-medium" style={{ color: "var(--text-faint)" }}>
+              Software & Engineering
+            </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-2xl border border-slate-200/80 dark:border-white/5 shadow-inner">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${
-                  isActive
-                    ? "bg-white dark:bg-white/10 text-blue-700 dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/30 shadow-xs font-bold"
-                    : "text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5"
-                }`}
-              >
-                <link.icon className="w-3.5 h-3.5 opacity-75" />
-                {link.name}
-              </Link>
-            );
-          })}
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-0.5">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive(link.href)
+                  ? "text-accent font-semibold"
+                  : "hover:bg-[var(--bg-card-subtle)]"
+              }`}
+              style={{
+                color: isActive(link.href) ? "var(--accent)" : "var(--text-secondary)",
+              }}
+            >
+              {link.name}
+            </Link>
+          ))}
         </nav>
 
-        {/* Action Buttons & Theme Switcher */}
-        <div className="flex items-center gap-2.5">
-          
-          {/* Theme & Palette Switcher */}
+        {/* Right actions */}
+        <div className="flex items-center gap-2">
+
           <ThemeSwitcher />
 
-          {/* Realtime Notification Bell */}
+          {/* Notification bell */}
           <div className="relative">
             <button
-              onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:border-blue-400/40 transition-all relative"
-              aria-label="View notifications"
+              onClick={() => setNotifOpen(!notifOpen)}
+              className="btn btn-ghost p-2"
+              aria-label="Notifications"
+              style={{ borderRadius: "8px", position: "relative" }}
             >
               <Bell className="w-4 h-4" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 font-black text-[10px] flex items-center justify-center shadow-md animate-pulse">
+                <span
+                  className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white text-[9px] font-bold flex items-center justify-center"
+                  style={{ background: "var(--accent)", fontSize: "9px" }}
+                >
                   {unreadCount}
                 </span>
               )}
             </button>
 
-            {/* Notifications Dropdown */}
-            {notifDropdownOpen && (
-              <div className="absolute right-0 mt-3 w-80 sm:w-96 rounded-2xl glass-panel bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150 backdrop-blur-xl">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Live Updates</h4>
-                  </div>
+            {notifOpen && (
+              <div
+                className="absolute right-0 mt-2 w-80 rounded-xl border shadow-lg z-50 overflow-hidden"
+                style={{
+                  background: "var(--bg-card)",
+                  borderColor: "var(--border)",
+                  boxShadow: "var(--shadow-lg)",
+                }}
+              >
+                <div
+                  className="flex items-center justify-between px-4 py-3 border-b"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  <span className="text-xs font-semibold" style={{ color: "var(--text-main)" }}>
+                    Live Updates
+                  </span>
                   {notifications.length > 0 && (
                     <button
                       onClick={clearNotifications}
-                      className="text-[10px] text-slate-500 hover:text-rose-600 transition-colors font-medium"
+                      className="text-[11px] hover:underline"
+                      style={{ color: "var(--text-faint)" }}
                     >
-                      Clear All
+                      Clear all
                     </button>
                   )}
                 </div>
-
-                <div className="mt-3 max-h-72 overflow-y-auto space-y-2.5">
+                <div className="max-h-72 overflow-y-auto">
                   {notifications.length === 0 ? (
-                    <div className="text-center py-6 text-slate-500 text-xs">
-                      No live broadcasts yet. Stay tuned for product launches!
+                    <div className="py-8 text-center text-xs" style={{ color: "var(--text-faint)" }}>
+                      No notifications yet
                     </div>
                   ) : (
-                    notifications.map((n, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/5 hover:border-blue-400/30 transition-all">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-wider">{n.type || "Update"}</span>
-                          <span className="text-[9px] text-slate-400">{n.time}</span>
+                    notifications.map((n, i) => (
+                      <div
+                        key={i}
+                        className="px-4 py-3 border-b last:border-0"
+                        style={{ borderColor: "var(--border-subtle)" }}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[10px] font-semibold" style={{ color: "var(--accent)" }}>
+                            {n.type ?? "Update"}
+                          </span>
+                          <span className="text-[10px]" style={{ color: "var(--text-faint)" }}>
+                            {n.time}
+                          </span>
                         </div>
-                        <p className="text-xs font-bold text-slate-900 dark:text-white mt-1">{n.title}</p>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">{n.body}</p>
+                        <p className="text-xs font-medium" style={{ color: "var(--text-main)" }}>
+                          {n.title}
+                        </p>
+                        <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                          {n.body}
+                        </p>
                       </div>
                     ))
                   )}
@@ -138,50 +159,58 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Request Custom Quote CTA */}
-          <Link
-            href="/request-quote"
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-primary font-bold text-xs shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <span>Request Quote</span>
+          {/* CTA */}
+          <Link href="/request-quote" className="btn btn-primary hidden sm:inline-flex text-xs py-2 px-4">
+            Get a Quote
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile hamburger */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
-            aria-label="Toggle navigation menu"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="btn btn-ghost p-2 md:hidden"
+            aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
-
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 py-6 space-y-3 animate-in slide-in-from-top-5 duration-200">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-blue-600 dark:hover:text-cyan-400"
-            >
-              <link.icon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-              {link.name}
-            </Link>
-          ))}
-          <div className="pt-3">
-            <Link
-              href="/request-quote"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3 rounded-xl btn-primary font-bold text-xs flex items-center justify-center gap-2 shadow-lg"
-            >
-              <span>Request Custom Quote</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div
+          className="md:hidden border-t"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-card)",
+          }}
+        >
+          <div className="container py-4 space-y-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors"
+                style={{
+                  color: isActive(link.href) ? "var(--accent)" : "var(--text-secondary)",
+                  background: isActive(link.href) ? "var(--accent-muted)" : "transparent",
+                }}
+              >
+                {link.name}
+                <ChevronDown className="w-3.5 h-3.5 -rotate-90 opacity-40" />
+              </Link>
+            ))}
+            <div className="pt-3 border-t" style={{ borderColor: "var(--border)" }}>
+              <Link
+                href="/request-quote"
+                onClick={() => setMobileOpen(false)}
+                className="btn btn-primary w-full justify-center text-sm"
+              >
+                Get a Quote
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       )}

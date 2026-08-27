@@ -7,9 +7,9 @@ import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationToast } from "@/components/common/NotificationToast";
 
 export const metadata: Metadata = {
-  title: "CodeStudio — Software Showcase, SaaS Apps & Engineering Portfolio",
+  title: "CodeStudio — Software Showcase & Engineering Portfolio",
   description:
-    "Explore production-ready web apps, mobile applications (Android APK & iOS TestFlight), SaaS tools, and headless microservices with live interactive sandbox demos.",
+    "Production-ready web apps, mobile applications, SaaS tools, and custom software solutions built by experienced developers.",
 };
 
 export default function RootLayout({
@@ -19,13 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen flex flex-col antialiased">
         <ThemeProvider>
           <NotificationProvider>
-            <div className="flex flex-col min-h-screen relative bg-cyber-grid">
-              {/* Ambient Glow */}
-              <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-transparent blur-3xl pointer-events-none -z-10"></div>
-
+            <div className="flex flex-col min-h-screen">
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />
