@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { fetchProductBySlug } from "@/lib/api";
 import { formatCurrency, getPlatformBadge, getSafeImageUrl } from "@/lib/utils";
 import { ProductCard } from "@/components/products/ProductCard";
+import { Metadata } from "next";
 import {
   ArrowLeft,
   ExternalLink,
@@ -17,6 +18,38 @@ import {
 } from "lucide-react";
 
 export const revalidate = 30;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await fetchProductBySlug(slug);
+
+  if (!data || !data.product) {
+    return {
+      title: "Product Details",
+    };
+  }
+
+  const { product } = data;
+  return {
+    title: `${product.title} — Live Software Demo`,
+    description:
+      product.short_description ||
+      product.description ||
+      `Explore live demo and specifications for ${product.title} on CodeStudio PRO.`,
+    openGraph: {
+      title: `${product.title} — CodeStudio PRO`,
+      description:
+        product.short_description ||
+        product.description ||
+        `Explore live demo and specifications for ${product.title}.`,
+      images: product.thumbnail_url ? [product.thumbnail_url] : [],
+    },
+  };
+}
 
 export default async function ProductDetailPage({
   params,

@@ -1,0 +1,19 @@
+/* TEAM */
+  Architect & Lead Developer: Sakhawat Hossain (@sajusun)
+  Portfolio: https://sajusun.github.io/
+  GitHub: https://github.com/sajusun
+  LinkedIn: https://linkedin.com/in/sajusun
+  Location: Dhaka, Bangladesh
+
+/* PROJECT */
+  Project Name: CodeStudio PRO
+  Description: Modern digital software showcase & engineering platform
+  Repository: https://github.com/sajusun/code-studio-nextjs
+  Live URL: https://code-studio-pro.vercel.app
+  License: MIT Open Source License (https://opensource.org/licenses/MIT)
+
+/* TECH STACK */
+  Frontend: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
+  Backend: Laravel 12 Headless REST API
+  WebSockets: Laravel Reverb, Laravel Echo, Pusher JS
+  Hosting: Vercel (Frontend), AWS / Cloud (Backend)

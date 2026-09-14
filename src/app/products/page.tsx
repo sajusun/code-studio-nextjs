@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { fetchProducts } from "@/lib/api";
 import { ProductCard } from "@/components/products/ProductCard";
+import { Metadata } from "next";
 import { Layers, Search, Filter, Globe, Smartphone, ShieldCheck, ArrowLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Software Showcase & SaaS Catalog",
+  description:
+    "Browse production-ready web apps, Android APKs, iOS TestFlight builds, and SaaS starter suites with live interactive demos.",
+};
 
 export const revalidate = 30;
 

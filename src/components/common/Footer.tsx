@@ -11,6 +11,8 @@ import {
   Smartphone,
   ShieldCheck,
   Sparkles,
+  Heart,
+  GitBranch,
 } from "lucide-react";
 
 export function Footer() {
@@ -64,9 +66,21 @@ export function Footer() {
               We design and engineer enterprise-grade web apps, mobile apps, SaaS tools, and headless microservices. Explore ready-to-deploy solutions and live demo previews.
             </p>
 
-            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 rounded-full w-fit">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Live Systems Online & Available for Customization
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 rounded-full w-fit">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Live Systems Online
+              </div>
+
+              <a
+                href="https://github.com/sajusun/code-studio-nextjs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-full hover:border-blue-400 transition-colors"
+              >
+                <GitBranch className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+                Open Source (MIT)
+              </a>
             </div>
           </div>
 
@@ -99,12 +113,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Company & Help</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Company & Open Source</h4>
             <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
               <li><Link href="/services" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Engineering Services</Link></li>
+              <li><Link href="/team" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Engineering Team</Link></li>
               <li><Link href="/request-quote" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Project Estimator</Link></li>
-              <li><Link href="/contact" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Contact & Support</Link></li>
-              <li><a href="http://backend_hms.test/admin/login" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Admin Dashboard ↗</a></li>
+              <li><a href="https://github.com/sajusun/code-studio-nextjs" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">GitHub Repository ↗</a></li>
+              <li><a href="https://sajusun.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Developer Portfolio ↗</a></li>
             </ul>
           </div>
 
@@ -150,13 +165,44 @@ export function Footer() {
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-14 pt-6 border-t border-slate-200/80 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} CodeStudio Software Suite. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-slate-700 dark:hover:text-slate-400 transition-colors">Microservice Headless Architecture</span>
+        {/* Developer Attribution & Bottom Bar */}
+        <div className="mt-14 pt-6 border-t border-slate-200/80 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p className="flex items-center gap-1.5 text-center sm:text-left flex-wrap justify-center sm:justify-start">
+            <span>Architected &amp; Built with</span>
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" />
+            <span>by</span>
+            <a
+              href="https://sajusun.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-cyan-400 underline underline-offset-2 transition-colors"
+            >
+              Sakhawat Hossain (@sajusun)
+            </a>
             <span>•</span>
-            <span className="hover:text-slate-700 dark:hover:text-slate-400 transition-colors">Laravel 12 + Next.js 15</span>
+            <span>© {new Date().getFullYear()} CodeStudio PRO</span>
+          </p>
+
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <a
+              href="https://github.com/sajusun/code-studio-nextjs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1 font-medium"
+            >
+              <GitBranch className="w-3.5 h-3.5" /> GitHub
+            </a>
+            <span>•</span>
+            <a
+              href="https://linkedin.com/in/sajusun"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors font-medium"
+            >
+              LinkedIn
+            </a>
+            <span>•</span>
+            <span className="text-slate-400 dark:text-slate-600">Next.js 16 • Laravel 12 Microservice</span>
           </div>
         </div>
       </div>

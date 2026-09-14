@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Metadata } from "next";
 import {
   Globe,
   Smartphone,
@@ -9,6 +10,12 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Engineering Services & Architecture",
+  description:
+    "End-to-end software development services: Full-Stack Web Apps, Mobile Development (Android & iOS), and High-Throughput Headless Microservices.",
+};
 
 export default function ServicesPage() {
   const services = [
